@@ -1,0 +1,19 @@
+{
+  "name": "discordyoutubenotifier",
+  "version": "1.0.0",
+  "description": "Be notified when one of your favorite youtubers posts a video! ",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Androz2091/DiscordYoutubeNotifier.git"
+  },
+  "author": "Androz2091",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Androz2091/DiscordYoutubeNotifier/issues"
+  },
+  "homepage": "https://github.com/Androz2091/DiscordYoutubeNotifier#readme"
+}
