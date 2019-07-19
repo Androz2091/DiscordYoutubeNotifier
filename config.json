@@ -1,0 +1,10 @@
+{
+    "token": "your-discord-bot-token-here",
+    "message": "New video: **{videoTitle}**! It was uploaded by {videoAuthorName} at {videoPubDate}! Here is the link: {videoURL}",
+    "channel": "your-channel-id-for-announcements-here",
+    "youtubers": [
+        "Pewdiepie",
+        "Squeezie",
+        "https://www.youtube.com/channel/UCNuYih-JMtLxOlsjeIos4ZA"
+    ]
+}
