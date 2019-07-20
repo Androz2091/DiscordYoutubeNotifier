@@ -42,7 +42,7 @@ async function getLastVideo(youtubeChannelName, rssURL){
         let bPubDate = new Date(b.pubDate || 0).getTime();
         return bPubDate - aPubDate;
     });
-    console.log(`[${youtubeChannelName}]  | The last video is "${tLastVideos[0].title}"`);
+    console.log(`[${youtubeChannelName}]  | The last video is "${tLastVideos[0] ? tLastVideos[0].title : "err"}"`);
     return tLastVideos[0];
 }
 
