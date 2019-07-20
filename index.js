@@ -18,7 +18,7 @@ client.on("ready", () => {
 });
 
 /**
- * Format a date to a readdable string
+ * Format a date to a readable string
  * @param {Date} date The date to format 
  */
 function formatDate(date) {
