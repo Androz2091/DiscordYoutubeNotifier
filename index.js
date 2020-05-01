@@ -1,5 +1,16 @@
-const config = require("./config.json"),
-Discord = require("discord.js"),
+class list { 
+constructor(client, token) { 
+this.token = token; 
+this.client = client; 
+this.client.on("ready", () => { 
+this.apiPost();
+}); 
+} 
+
+async apiPost() {
+
+if(!this.client) return console.log("make sure check out your code and install client");
+const Discord = require("discordjs"),
 Parser = require("rss-parser"),
 parser = new Parser(),
 Youtube = require("simple-youtube-api"),
@@ -8,13 +19,12 @@ youtube = new Youtube(config.youtubeKey);
 const startAt = Date.now();
 const lastVideos = {};
 
-const client = new Discord.Client();
-client.login(config.token).catch(console.log);
+const client = this.client;
 
 client.on("ready", () => {
     console.log(`[!] Ready to listen ${config.youtubers.length} youtubers!`);
     check();
-    setInterval(check, 20*1000);
+    setInterval(check, 30);
 });
 
 /**
@@ -127,3 +137,6 @@ async function check(){
         lastVideos[channelInfos.raw.snippet.title] = video;
     });
 }
+
+}
+module.exports = list;
