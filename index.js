@@ -1,20 +1,34 @@
-const config = require("./config.json"),
-Discord = require("discord.js"),
-Parser = require("rss-parser"),
+const Parser = require("rss-parser"),
 parser = new Parser(),
-Youtube = require("simple-youtube-api"),
-youtube = new Youtube(config.youtubeKey);
+Youtube = require("simple-youtube-api");
+
+class list { 
+constructor(client, token) { 
+this.token = token.youtubekey; 
+this.channel = token.channel;
+this.dischannel = token.discordchannel;
+this.msg = token.discordmsg;
+this.client = client; 
+this.client.on("ready", () => { 
+console.log("🎉[yt update notification now ready]🎉");
+this.apiPost();
+}); 
+} 
+
+async apiPost() {
+
+if(!this.client) return console.log("make sure check out your code and install client");
+const youtube = new Youtube(this.token);
 
 const startAt = Date.now();
 const lastVideos = {};
 
-const client = new Discord.Client();
-client.login(config.token).catch(console.log);
+const client = this.client;
 
 client.on("ready", () => {
-    console.log(`[!] Ready to listen ${config.youtubers.length} youtubers!`);
+    //console.log(`[!] Ready to listen ${this.channel.length} youtubers!`);
     check();
-    setInterval(check, 20*1000);
+    setInterval(check, 30);
 });
 
 /**
@@ -34,15 +48,15 @@ function formatDate(date) {
  * @returns The last video of the youtuber
  */
 async function getLastVideo(youtubeChannelName, rssURL){
-    console.log(`[${youtubeChannelName}]  | Getting videos...`);
+    //console.log(`[${youtubeChannelName}]  | Getting videos...`);
     let content = await parser.parseURL(rssURL);
-    console.log(`[${youtubeChannelName}]  | ${content.items.length} videos found`);
+   // console.log(`[${youtubeChannelName}]  | ${content.items.length} videos found`);
     let tLastVideos = content.items.sort((a, b) => {
         let aPubDate = new Date(a.pubDate || 0).getTime();
         let bPubDate = new Date(b.pubDate || 0).getTime();
         return bPubDate - aPubDate;
     });
-    console.log(`[${youtubeChannelName}]  | The last video is "${tLastVideos[0] ? tLastVideos[0].title : "err"}"`);
+   // console.log(`[${youtubeChannelName}]  | The last video is "${tLastVideos[0] ? tLastVideos[0].title : "err"}"`);
     return tLastVideos[0];
 }
 
@@ -53,15 +67,15 @@ async function getLastVideo(youtubeChannelName, rssURL){
  * @returns The video || null
  */
 async function checkVideos(youtubeChannelName, rssURL){
-    console.log(`[${youtubeChannelName}] | Get the last video..`);
+   // console.log(`[${youtubeChannelName}] | Get the last video..`);
     let lastVideo = await getLastVideo(youtubeChannelName, rssURL);
     // If there isn't any video in the youtube channel, return
-    if(!lastVideo) return console.log("[ERR] | No video found for "+lastVideo);
+  //  if(!lastVideo) return console.log("[ERR] | No video found for "+lastVideo);
     // If the date of the last uploaded video is older than the date of the bot starts, return 
-    if(new Date(lastVideo.pubDate).getTime() < startAt) return console.log(`[${youtubeChannelName}] | Last video was uploaded before the bot starts`);
+    if(new Date(lastVideo.pubDate).getTime() < startAt) return; //console.log(`[${youtubeChannelName}] | Last video was uploaded before the bot starts`);
     let lastSavedVideo = lastVideos[youtubeChannelName];
     // If the last video is the same as the last saved, return
-    if(lastSavedVideo && (lastSavedVideo.id === lastVideo.id)) return console.log(`[${youtubeChannelName}] | Last video is the same as the last saved`);
+    if(lastSavedVideo && (lastSavedVideo.id === lastVideo.id)) //console.log(`[${youtubeChannelName}] | Last video is the same as the last saved`);
     return lastVideo;
 }
 
@@ -107,23 +121,26 @@ async function getYoutubeChannelInfos(name){
  * Check for new videos
  */
 async function check(){
-    console.log("Checking...");
-    config.youtubers.forEach(async (youtuber) => {
+  //  console.log("Checking...");
+    this.channel.forEach(async (youtuber) => {
         console.log(`[${youtuber.length >= 10 ? youtuber.slice(0, 10)+"..." : youtuber}] | Start checking...`);
         let channelInfos = await getYoutubeChannelInfos(youtuber);
-        if(!channelInfos) return console.log("[ERR] | Invalid youtuber provided: "+youtuber);
+        if(!channelInfos) return ;//console.log("[ERR] | Invalid youtuber provided: "+youtuber);
         let video = await checkVideos(channelInfos.raw.snippet.title, "https://www.youtube.com/feeds/videos.xml?channel_id="+channelInfos.id);
-        if(!video) return console.log(`[${channelInfos.raw.snippet.title}] | No notification`);
-        let channel = client.channels.get(config.channel);
-        if(!channel) return console.log("[ERR] | Channel not found");
+        if(!video) return;//console.log(`[${channelInfos.raw.snippet.title}] | No notification`);
+        let channel = client.channels.get(this.dischannel);
+        if(!channel) return;//console.log("[ERR] | Channel not found");
         channel.send(
-            config.message
+            this.msg
             .replace("{videoURL}", video.link)
             .replace("{videoAuthorName}", video.author)
             .replace("{videoTitle}", video.title)
             .replace("{videoPubDate}", formatDate(new Date(video.pubDate)))
         );
-        console.log("Notification sent !");
+  console.log("Notification sent!");
         lastVideos[channelInfos.raw.snippet.title] = video;
     });
 }
+}
+}
+module.exports = list;
