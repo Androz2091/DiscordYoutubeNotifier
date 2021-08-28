@@ -114,15 +114,15 @@ async function check(){
         if(!channelInfos) return console.log("[ERR] | Invalid youtuber provided: "+youtuber);
         let video = await checkVideos(channelInfos.raw.snippet.title, "https://www.youtube.com/feeds/videos.xml?channel_id="+channelInfos.id);
         if(!video) return console.log(`[${channelInfos.raw.snippet.title}] | No notification`);
-        let channel = client.channels.get(config.channel);
+        let channel = client.channels.cache.get(config.channel);
         if(!channel) return console.log("[ERR] | Channel not found");
-        channel.send(
+        channel.send({ content: 
             config.message
             .replace("{videoURL}", video.link)
             .replace("{videoAuthorName}", video.author)
             .replace("{videoTitle}", video.title)
             .replace("{videoPubDate}", formatDate(new Date(video.pubDate)))
-        );
+        });
         console.log("Notification sent !");
         lastVideos[channelInfos.raw.snippet.title] = video;
     });
