@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Androz2091/DiscordYoutubeNotifier#readme",
   "dependencies": {
-    "discord.js": "^11.5.1",
+    "discord.js": "^13.2.0",
     "rss-parser": "^3.7.2",
     "simple-youtube-api": "^5.2.1"
   }

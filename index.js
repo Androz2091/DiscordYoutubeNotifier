@@ -8,7 +8,7 @@ youtube = new Youtube(config.youtubeKey);
 const startAt = Date.now();
 const lastVideos = {};
 
-const client = new Discord.Client();
+const client = new Discord.Client( {intents: [Discord.Intents.FLAGS.GUILD_MESSAGES]} );
 client.login(config.token).catch(console.log);
 
 client.on("ready", () => {
