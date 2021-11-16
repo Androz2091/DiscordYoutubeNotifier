@@ -8,13 +8,17 @@ youtube = new Youtube(config.youtubeKey);
 const startAt = Date.now();
 const lastVideos = {};
 
-const client = new Discord.Client();
+const client = new Discord.Client( {intents: [Discord.Intents.FLAGS.GUILD_MESSAGES]} );
 client.login(config.token).catch(console.log);
 
 client.on("ready", () => {
     console.log(`[!] Ready to listen ${config.youtubers.length} youtubers!`);
     check();
     setInterval(check, 20*1000);
+});
+
+client.on("ready", () => {
+    client.user.setActivity(`${config.youtubers.length} youtuberów!`, { type: 'WATCHING' });
 });
 
 /**
