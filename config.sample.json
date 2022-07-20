@@ -1,11 +1,37 @@
 {
-    "token": "your-discord-bot-token-here",
-    "message": "New video: **{videoTitle}**! It was uploaded by {videoAuthorName} at {videoPubDate}! Here is the link: {videoURL}",
-    "channel": "your-channel-id-for-announcements-here",
-    "youtubers": [
-        "Pewdiepie",
-        "Squeezie",
-        "https://www.youtube.com/channel/UCNuYih-JMtLxOlsjeIos4ZA"
+    "token": "OTY3NDI2NzAxODc5NTYyMjUx.G-3uuE.dgv2qeEouvQxw5JKI7LHDc8slPzAgcxAyM56SM",
+    "message_lazulight": "<@&997182221695860867> {videoAuthorName} just posted {videoTitle}!\n{videoURL}",
+    "message_obsydia": "<@&998232660046532748> {videoAuthorName} just posted {videoTitle}!\n{videoURL}",
+    "message_holoen": "<@&998795976800219136> {videoAuthorName} just posted {videoTitle}!\n{videoURL}",
+    "channel_lazu": "997181910692405450",
+    "channel_obsy": "998165153956765716",
+    "channel_holoen": "998795140481175652",
+    "holoen": [
+        "https://youtube.com/c/OuroKroniiCh",
+        "https://youtube.com/channel/UCyl1z3jo3XHR1riLFKG5UAg",
+        "https://youtube.com/channel/UCL_qhgtOy0dy1Agp8vkySQg",
+        "https://youtube.com/channel/UCoSrY_IQQVpmIRZ9Xf-y93g",
+        "https://youtube.com/channel/UC3n5uGu18FoCy23ggWWp8tA",
+        "https://youtube.com/channel/UCHsx4Hqa-1ORjQTh9TYDhww",
+        "https://youtube.com/channel/UCMwGHR0BTZuLsmjY_NT5Pwg",
+        "https://youtube.com/channel/UCO_aKKYxn4tvrqPjcTzZ6EQ",
+        "https://youtube.com/channel/UCgmPnx-EEeOrZSg5Tiw7ZRQ"
     ],
-    "youtubeKey": "your http://console.developer.google.com youtube v3 api key"
+    "obsydia": [
+
+        "https://youtube.com/channel/UCV1xUwfM2v2oBtT3JNvic3w",
+
+        "https://youtube.com/channel/UC4WvIIAo89_AzGUh1AZ6Dkg"
+
+    ],
+    "lazulight": [
+
+        "https://youtube.com/channel/UCP4nMSTdwU1KqYWu3UH5DHQ",
+
+        "https://youtube.com/channel/UCIeSUTOTkF9Hs7q3SGcO-Ow",
+
+        "https://youtube.com/c/FinanaRyugu-NIJISANJIEN"
+
+    ],
+    "youtubeKey": "AIzaSyCugcpVn3q3r9CmuV6xHu8yLydvREXL4oQ"
 }
